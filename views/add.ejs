@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/add.css">
+    <link rel="stylesheet" href="/css/sidebar.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+</head>
+<body>
+     <%- include("partials/navbar") %>
+
+     <div class="layout">   
+     
+        <%- include("partials/sidebar") %>
+        <div class="main-add">
+            <div class="main-header">
+                <span><button class="main-heading-button"><i class="fa-solid fa-arrow-left"></i></button></span>
+                 <span class="main-heading"> 
+                   <span><h1>Add new Task</h1></span> 
+                   <span>Fill in the details  below to create  a task</span>
+                </span>
+            </div>
+            <div class="main-form-section">
+                    <div class="primary-form">
+                        <form  id="form1" class="form" action="/todo/add" method="POST">
+
+                            <div class="form-header">
+                                <div class="t-header"><h4>Task Details</h4></div>
+                            </div>
+                            <div  class="form-inputs">
+
+                                <label fro="title" ><h5>Task title</h5></label>
+                                <input  id="title"class="input textColor" name="title" placeholder="e.g. Design the login page UI.." >
+
+                            </div>
+                            <div class="form-inputs">
+                                <label for="description" ><h5>Description</h5></label>
+                                <textarea id="description" class="description textColor" name="description" placeholder="Add more context notes about this task"></textarea>
+                            </div>
+                            <div class="form-inputs-dates">
+                                <div class="form-dates">
+                                    <label for="dates"><h5>Due date</h5></label>
+                                    <input  id="dates"class="dates textColor" type="date" name="duedate">
+
+
+                                </div>
+                                <div class="form-times">
+                                    <label for="time"><h5>Due time</h5></label>
+                                    <input  id="time"class="time textColor" type="time" name="duetime">
+
+                                </div>
+                            </div>      
+                            <div class="form-buttons">
+                                <span><h5>Priority</h5></span>
+                                <span class="categories"> 
+                                     <div class="buttons">
+                                    <button  data-action="High"class="btn">HIGH </button>
+                                    </div>
+                                 <div class="buttons">
+                                    <button  data-action="Medium"class="btn">Medium </button>
+                                </div>
+                                 <div class="buttons">
+                                    <button data-action="Low" class="btn">Low </button>
+                                </div>
+                            </span>
+
+                              
+                            </div>
+                            <div class="form-category">
+                                <div class=""><h5>Categories</h5></div>
+                                <div class="categories_dropdown">
+                                    <select id="category" name="category">
+                                          <option value="Work">Work</option>
+                                           <option value="personal">Personal</option>
+                                            <option value="Urgent">Urgent</option>
+                                             <option value="Finance">Finance</option>
+
+
+                                    </select>
+
+                                </div>
+                                
+
+                                
+                            </div>
+
+
+                        </form>
+
+
+
+                    </div>
+                    <div class="secondary-form">
+                        <div class="secondary-primary">
+                            <div class="s_header">
+                                <h3>REMINDER</h3>
+
+                            </div>
+                            <div class="s_notify">
+                                <span>
+                                    Nottify me
+                                </span>
+                                <span class="n_timer" data-action="repeat-timings">
+                                    <span > <button  data-time="none"class="n_timer_btn">None</button></span>
+                                    <span><button data-time="15min" class="n_timer_btn">15 min</button></span>
+                                    <span><button data-time="1hr"class="n_timer_btn">1 hr </button></span>
+                                    <span><button data-time="1day"class="n_timer_btn">1 day</button></span>
+
+                                </span>
+                            </div>
+                            <div class="s_repeat s_dropdowns">
+                                <span>Repeat</span>
+                                <span >
+                                    <select  class="s_dropdown" data-action="repeat-interval" name="repeat">
+                                        <option value="name">nothing</option>
+                                    </select>
+                                </span>
+                            </div>
+                             <div class="s_assign s_dropdowns">
+                                <span>Assigned to</span>
+                                <span >
+                                    <select name="assigned" data-action="assigning-selector"  class="s_dropdown">
+                                        <option value="name">nothing</option>
+                                    </select>
+                                </span>
+                            </div>
+                             <div class="s_status s_dropdowns">
+                                <span>Status  </span>
+                                <span >
+                                    <select name="status" data-action="status-selector" class="s_dropdown">
+                                        <option value="name">nothing</option>
+                                    </select>
+                                </span>
+                            </div>
+
+
+
+                        </div>
+                        <div class="secondary-secondary">
+                            <div class="ss_header">
+                                <h4>Task Summary</h4>
+                            </div>
+                            <div class="ss_body">
+
+                                <div class="ss_class">
+                                    <span ><h5>Priority</h5></span>
+
+                                    <span class="ss_priority">High</span>
+                                    
+                                </div>
+                                <div class="ss_class">
+                                    <span>
+                                        <h5>Category</h5>
+                                    </span>
+                                    <span >
+                                        Work
+                                    </span>
+                                    
+                                </div>
+                                <div class="ss_class"> 
+                                    <span><h5>Due Date</h5></span>
+                                    <span>  __</span>
+
+                                </div>
+                                <div class="ss_class">
+                                    <span><h5>Reminder</h5></span>
+                                    <span></span>
+                                    
+                                </div>
+                          
+
+                            </div>
+                            <div class="ss_horizontal">
+
+                            </div>
+                            <div class="ss_submission">
+                                <div class="ss_submit ">
+                                    <button data-action="submit-forms" class="btn create">Create Task</button>
+
+                                </div>
+                                <div class="ss_cancel ">
+
+                                    <button class="btn cancel">Cancel</button>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+            </div>
+           
+
+        </div>
+
+        </div>
+
+     
+    
+<script src="/js/add.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/sidebar.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    
+        <%- include("partials/navbar") %>
+
+
+        <div class="layout">
+            <%- include("partials/sidebar") %>
+            
+        <div class="main-section">
+            <div class="main-section-header">
+                <span class="header-info">
+                    <span><h2>MY Tasks</h2></span>
+                    <span> <h6>Thursday,9 April 2026</h6></span>
+                    
+                    
+                </span>
+                <span>
+                    <button class="add-task">
+                        +Add Task
+
+                    </button>
+
+                </span>
+
+
+            </div>
+            <div class="main-section-infos">
+                <div class="section-cards">
+                    <span class="card-content">Total Tasks</span>
+                    <span class="card-content"><h1 style="color:#E151AF">12</h1></span>
+                    <span class="card-content">All Projects</span>
+
+                </div>
+                <div class="section-cards">
+
+                    <span class="card-content">completed</span>
+                    <span class="card-content"><h1 style="color:#16D833">8</h1></span>
+                    <span class="card-content">This week</span>
+
+                </div>
+                <div class="section-cards">
+                          <span class="card-content">In Progress </span>
+                    <span class="card-content"><h1 style="color:#FED43F">3</h1></span>
+                    <span class="card-content">Active now</span>
+
+                    
+                </div>
+                <div class="section-cards">
+                          <span class="card-content">Overdue</span>
+                    <span class="card-content"><h1 style="color:#E21B32">1</h1></span>
+                    <span class="card-content">Needs action</span>  
+
+                </div>
+
+            </div>
+        
+            <div class="main-section-progess">
+
+            </div>
+            <div class="main-section-categories">
+                
+            </div>
+
+
+        
+        </div>
+        </div>
+ 
+
+
+
+  
+    <script src="/js/main.js"></script>
+</body>
+</html>
