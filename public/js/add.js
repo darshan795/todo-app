@@ -114,7 +114,9 @@ const dropdowns=document.querySelectorAll(".s_dropdown");
 dropdowns.forEach((dropdown)=>{
     dropdown.addEventListener("input",(event)=>{
        obj[`${dropdown.name}`]=event.target.value;
+       obj['priority']=priorityDisplay.innerText;
        })
 })
-console.log(priorityDisplay);
-console.log(priorityDisplay.innerText);
+
+// console.log(priorityDisplay.innerText);
+

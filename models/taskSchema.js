@@ -14,7 +14,8 @@ const taskSchema=new mongoose.Schema({
     
    },
    status:{
-    type:Boolean
+    type:String,
+    enum:["pending","inprogress","compeleted"]
    },
    duedate:{
     type:Date,
@@ -34,10 +35,7 @@ const taskSchema=new mongoose.Schema({
     enum:["Work","personal","Urgent","Finance"]
 
    },
-   notify:{
-    type:Date,
-
-   },
+    
    assigned:{
     type:String,
     enum:["Me","Others"]
