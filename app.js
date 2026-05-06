@@ -9,6 +9,7 @@ const methodOverride=require("method-override");
 const ExpressError=require("./utils/ExpressError");
 const WrapAsync=require("./utils/WrapAsync");
 const taskRoutes=require("./routes/taskRoutes");
+const session=require("express-session");
     
 const connectDb=async ()=>{
         await mongoose.connect('mongodb://127.0.0.1:27017/todo');
@@ -28,18 +29,57 @@ app.use((req,res,next)=>{
         next();
 
     })
-app.use("/todo",taskRoutes);
-app.get("/testing",(req,res,next)=>{
-        console.log("hey this is  new thing");
-        next( new ExpressError());
 
-    })
-app.get("/testing1",(req,res,next)=>{
-        throw new ExpressError(420,"not  fucking  much")
-    })
-app.get("/testing2",(req,res,next)=>{
-    next(new ExpressError(400,"hey this is a  failure  testing!!"))
-    })
+app.use(session({
+    secret:"mysupersecretkeyforcookieprotection",
+    resave:false,
+    saveUninitialized:false,
+    name:"sessionId",
+    cookie:{
+        maxAge:1000*60*60*24,
+        httpOnly:true,
+        secure:false//it  is  used in the   http part  for the  development
+        //true it  will be used for the implementation of the  production site that is will only be sent through the https
+        
+
+    }
+
+}))
+//let use the fake  database scene to understand  authentication and  authorization
+let user={
+    username:"Darshan",
+    password:1234,
+    role:"admin"
+}
+app.get("/checklogin",(req,res)=>{
+    // console.log("for checking the login credentials ");
+    let user1="Darshan"   
+    try{
+    if(user.username==user1){
+        console.log("user found.");
+        req.session.user=user;
+
+       return res.send("user  authenticated!!")
+    }
+}catch(err){
+    console.log("there is the  fucking problem!!!")
+    console.log(err);
+}
+    res.send("user not authenticated!!!");
+})
+
+app.use("/todo",taskRoutes);
+app.get("/testing",(req,res)=>{
+    console.log(req.session);
+    console.log(req.session.user);
+    if(!req.session.user){
+        return res.send("failed to login first  login ")
+    }
+    res.json(req.session);
+})
+
+
+
 app.use((err,req,res,next)=>{
         console.log("error handling  middleware is coming motherfucker");
         res.status(err.status || 404).send(err.message || "nothing is  fucked..")
