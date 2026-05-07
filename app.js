@@ -95,19 +95,9 @@ passport.deserializeUser((id,done)=>{
 })
 //checking the login  method now
 app.get("/login",(req,res)=>{
-    const enteredUsername="darshan";
-    const enteredPassword=1234;
-    if(user.name==enteredUsername && enteredPassword==user.pwd){
-        req.login(user,(err)=>{
-            if(err){
-                return res.send("login success");
-            }
-        })
-        
-    }else{
-        res.send("wrong credentials");
-    }
+    res.render("login.ejs");
 })
+app.post("/login",passport.authenticate("local"));
 
 app.get("/checklogin",(req,res)=>{
     // console.log("for checking the login credentials ");
