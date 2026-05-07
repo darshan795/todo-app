@@ -15,6 +15,9 @@ function formData(event){
   
     if(event.target.dataset.action=="submit-forms"){
         console.log(newData)
+        //here i have to  fetch the api's  think so....
+        
+
     }
     
 }

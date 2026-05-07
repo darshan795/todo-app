@@ -10,6 +10,9 @@ const ExpressError=require("./utils/ExpressError");
 const WrapAsync=require("./utils/WrapAsync");
 const taskRoutes=require("./routes/taskRoutes");
 const session=require("express-session");
+const passport=require("passport");
+const LocalStrategy=require("passport-local");
+
     
 const connectDb=async ()=>{
         await mongoose.connect('mongodb://127.0.0.1:27017/todo');
@@ -45,12 +48,35 @@ app.use(session({
     }
 
 }))
+
+app.use(passport.initialize());//passport intialization
+//starts the passport
+app.use(passport.session());
+//connects passports  with  sessions
+
+
+
 //let use the fake  database scene to understand  authentication and  authorization
 let user={
-    username:"Darshan",
-    password:1234,
+    name:"Darshan",
+    pwd:1234,
     role:"admin"
 }
+//using the  local strategy for the passport use
+passport.use(
+    new LocalStrategy(
+        (username,password,done)=>{
+        if(username==user.name && password==user.pwd){
+            return done(null,user);
+        }
+        return done(null,false);
+        }
+    )
+)
+//this is the only strategy  which  defines how it is  going to check
+//the next part is passport.authenticate("local") which will determine the 
+//call for  checking the response;
+
 app.get("/checklogin",(req,res)=>{
     // console.log("for checking the login credentials ");
     let user1="Darshan"   
