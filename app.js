@@ -58,7 +58,7 @@ app.use(passport.session());
 
 //let use the fake  database scene to understand  authentication and  authorization
 let user={
-    name:"Darshan",
+    name:"darshan",
     pwd:1234,
     role:"admin"
 }
@@ -66,9 +66,16 @@ let user={
 passport.use(
     new LocalStrategy(
         (username,password,done)=>{
+            console.log("welcome to the  implementations of the  passport");
+            console.log(username);
+            console.log(password);
         if(username==user.name && password==user.pwd){
+            console.log("Login success fullly");
             return done(null,user);
         }
+        console.log("failed to login");
+        console.log("wrong credentials");
+
         return done(null,false);
         }
     )
@@ -76,6 +83,31 @@ passport.use(
 //this is the only strategy  which  defines how it is  going to check
 //the next part is passport.authenticate("local") which will determine the 
 //call for  checking the response;
+passport.serializeUser((user,done)=>{
+    console.log("serializing the user");
+    console.log(user);
+    done(null,user.id)
+})
+passport.deserializeUser((id,done)=>{
+    console.log("Deserialize the user");
+    console.log(id);
+    done(null,user);
+})
+//checking the login  method now
+app.get("/login",(req,res)=>{
+    const enteredUsername="darshan";
+    const enteredPassword=1234;
+    if(user.name==enteredUsername && enteredPassword==user.pwd){
+        req.login(user,(err)=>{
+            if(err){
+                return res.send("login success");
+            }
+        })
+        
+    }else{
+        res.send("wrong credentials");
+    }
+})
 
 app.get("/checklogin",(req,res)=>{
     // console.log("for checking the login credentials ");
