@@ -11,7 +11,8 @@ const WrapAsync=require("./utils/WrapAsync");
 const taskRoutes=require("./routes/taskRoutes");
 const session=require("express-session");
 const passport=require("passport");
-const LocalStrategy=require("passport-local");
+const LocalStrategy=require("passport-local").Strategy;
+const passportLocalMongoose=require("passport-local-mongoose");
 
     
 const connectDb=async ()=>{
@@ -48,72 +49,17 @@ app.use(session({
     }
 
 }))
-
-app.use(passport.initialize());//passport intialization
-//starts the passport
+app.use(passport.initialize());
 app.use(passport.session());
-//connects passports  with  sessions
+
+passport.use(new LocalStrategy(User.authenticate()));
 
 
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
-//let use the fake  database scene to understand  authentication and  authorization
-let user={
-    name:"darshan",
-    pwd:1234,
-    role:"admin"
-}
-//using the  local strategy for the passport use
-passport.use(
-    new LocalStrategy(
-        (username,password,done)=>{
-            console.log("welcome to the  implementations of the  passport");
-            console.log(username);
-            console.log(password);
-        if(username==user.name && password==user.pwd){
-            console.log("Login success fullly");
-            return done(null,user);
-        }
-        console.log("failed to login");
-        console.log("wrong credentials");
-
-        return done(null,false);
-        }
-    )
-)
-//this is the only strategy  which  defines how it is  going to check
-//the next part is passport.authenticate("local") which will determine the 
-//call for  checking the response;
-passport.serializeUser((user,done)=>{
-    console.log("serializing the user");
-    console.log(user);
-    done(null,user.id)
-})
-passport.deserializeUser((id,done)=>{
-    console.log("Deserialize the user");
-    console.log(id);
-    done(null,user);
-})
-//checking the login  method now
-app.get("/login",(req,res)=>{
-    res.render("login.ejs");
-})
-app.post("/login",passport.authenticate("local"));
-
-app.get("/checklogin",(req,res)=>{
-    // console.log("for checking the login credentials ");
-    let user1="Darshan"   
-    try{
-    if(user.username==user1){
-        console.log("user found.");
-        req.session.user=user;
-
-       return res.send("user  authenticated!!")
-    }
-}catch(err){
-    console.log("there is the  fucking problem!!!")
-    console.log(err);
-}
-    res.send("user not authenticated!!!");
+app.get("/signup",(req,res)=>{
+    res.render("signup.ejs");
 })
 
 app.use("/todo",taskRoutes);
