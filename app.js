@@ -13,7 +13,8 @@ const session=require("express-session");
 const passport=require("passport");
 const LocalStrategy=require("passport-local").Strategy;
 const passportLocalMongoose=require("passport-local-mongoose");
-
+const isLoggedIn=require("./middleware");
+const userRoutes=require("./routes/userRoutes");
     
 const connectDb=async ()=>{
         await mongoose.connect('mongodb://127.0.0.1:27017/todo');
@@ -58,22 +59,8 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.get("/signup",(req,res)=>{
-    res.render("signup.ejs");
-})
-
 app.use("/todo",taskRoutes);
-app.get("/testing",(req,res)=>{
-    console.log(req.session);
-    console.log(req.session.user);
-    if(!req.session.user){
-        return res.send("failed to login first  login ")
-    }
-    res.json(req.session);
-})
-
-
-
+app.use("/",userRoutes);
 app.use((err,req,res,next)=>{
         console.log("error handling  middleware is coming motherfucker");
         res.status(err.status || 404).send(err.message || "nothing is  fucked..")

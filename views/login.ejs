@@ -8,16 +8,29 @@
 
 </head>
 <body>
-    <div class="login">
-        <form action="/login" method="POST" class="login">
-            <label for="username">Enter the email</label>
-            <input type="text" id="username" name="username" placeholder="Enter the  email or username">
-            <label for="password">Enter the Password</label>
-            <input id="password" name="password" placeholder="Enter the password">
-            <button type="submit">Submit</button>
-
+     <div class="login-form">
+        <form class="login" action="/login" method="POST">
+            <div class="l_header">
+                <h1>Login</h1>
+            </div>
+          
+               <div class="l_inputs">
+                <label for="username" >Enter the Username</label>
+                <input id="username" name="username" placeholder="Enter your  username">
+                
+            </div>
+               <div class="l_inputs">
+                <label for="password" >Enter the Password</label>
+                <input id="password" name="password" placeholder="Enter your password">
+                
+            </div>
+            <div class="l_button">
+                <button type="submit">
+                    Submit
+                </button>
+            </div>
         </form>
-
     </div>
+    
 </body>
 </html>
