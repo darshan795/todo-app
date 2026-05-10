@@ -4,7 +4,8 @@ const User=require("../models/userSchema");
 const Task=require("../models/taskSchema");
 const ExpressError=require("../utils/ExpressError");
 const WrapAsync=require("../utils/WrapAsync");
-
+const passport=require("passport");
+const isLoggedIn=require("../middleware");
 router.get("/signup",(req,res)=>{
     res.render("signup.ejs");
 
@@ -30,12 +31,21 @@ router.post("/signup",async (req,res,next)=>{
 router.get("/login",(req,res)=>{
     res.render("login.ejs");
 })
-router.post("/login",(req,res)=>{
-    //now this part  we will be using to log in  the user
-    
+router.post("/login",passport.authenticate("local",{
+    failureRedirect:"/login",
+    successRedirect:"/todo/main"
+}))
+
+router.get("/logout",isLoggedIn,(req,res)=>{
+    req.logout((err)=>{
+        if(err){
+            console.log("failed to logout");
+            return next(err);
+        }
+        return res.redirect("/login");
+
+    })
 })
-
-
 
 module.exports=router;
 

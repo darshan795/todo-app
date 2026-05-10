@@ -5,11 +5,13 @@ const Task=require("../models/taskSchema");
 const mongoose=require("mongoose");
 const ExpressError=require("../utils/ExpressError");
 const WrapAsync=require("../utils/WrapAsync");
+const isLoggedIn=require("../middleware");
+
 router.get("/",(req,res)=>{
     res.send("welcome to the implementation of the  routers  motherfucker!!!");
 })
 
-router.get("/add",(req,res)=>{
+router.get("/add",isLoggedIn,(req,res)=>{
     res.render("add.ejs")
 })
 router.post("/add",   WrapAsync(async (req,res)=>{
@@ -82,7 +84,7 @@ router.put("/update/:id", async (req,res)=>{
 })
 
 
-router.get("/main",(req,res)=>{
+router.get("/main",isLoggedIn,(req,res)=>{
     res.render("main.ejs");
 
 })
