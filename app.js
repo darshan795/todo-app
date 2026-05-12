@@ -63,7 +63,7 @@ app.use("/todo",taskRoutes);
 app.use("/",userRoutes);
 app.use((err,req,res,next)=>{
         console.log("error handling  middleware is coming motherfucker");
-        res.status(err.status || 404).send(err.message || "nothing is  fucked..")
+        res.status(err.status || 404).json({message:err.message?err.message:"it is fucked because of err"})
     })
 app.get("/",(req,res)=>{
         res.render("pratice.ejs");

@@ -20,7 +20,8 @@ router.post("/add",   WrapAsync(async (req,res)=>{
         userid:new mongoose.Types.ObjectId("69d5246752afdc4fd859b064"),
         ...data
     };
-    console.log(newData);
+    console.log("the resquest is logged  here motherfucker!!")
+    console.log(newData);   
     if(!data.title){
         throw new ExpressError(500,"failed tgito  insert the data into the databae")
     }
@@ -28,8 +29,7 @@ router.post("/add",   WrapAsync(async (req,res)=>{
     let result=new Task(newData);
     await result.save();
 
-    
-    console.log("error while pushing the code to servers",err);
+
     
 
      

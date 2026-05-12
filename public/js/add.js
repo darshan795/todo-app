@@ -7,6 +7,7 @@ let obj={
 };
 let  newData={}
 //collecting the function data
+
 function formData(event){
        const formData=new FormData(form1); 
     const data=Object.fromEntries(formData.entries());
@@ -15,7 +16,10 @@ function formData(event){
   
     if(event.target.dataset.action=="submit-forms"){
         console.log(newData)
-        //here i have to  fetch the api's  think so....
+    
+
+        sendData(newData);
+       
         
 
     }
@@ -74,8 +78,26 @@ function btnValue(btns){
     //      
     
 }
+async function sendData(data){
+    try{
+    const response=await fetch("/todo/add",{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify(data)
+    })
+    const newone=await response.json();
+    console.log(newone);
+    console.log("successfully sent the data");
+}catch(err){
+    console.log("error  while getting  this part  please check it and verify it ",err);
+}
 
-main.addEventListener("click",(event)=>{
+
+}
+
+main.addEventListener("click",(event)=>{    
     event.preventDefault();
     formData(event);   
 })

@@ -33,7 +33,7 @@ router.get("/login",(req,res)=>{
 })
 router.post("/login",passport.authenticate("local",{
     failureRedirect:"/login",
-    successRedirect:"/todo/main"
+    successRedirect:"/todo/add"
 }))
 
 router.get("/logout",isLoggedIn,(req,res)=>{
