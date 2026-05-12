@@ -22,7 +22,7 @@ router.post("/add",   WrapAsync(async (req,res)=>{
     };
     console.log(newData);
     if(!data.title){
-        throw new ExpressError(500,"failed to  insert the data into the databae")
+        throw new ExpressError(500,"failed tgito  insert the data into the databae")
     }
     
     let result=new Task(newData);
