@@ -2,8 +2,9 @@
 const mongoose=require("mongoose");
 
 const taskSchema=new mongoose.Schema({
-    userid:{
+    owner:{
         type: mongoose.Schema.Types.ObjectId,
+        ref:"User"
     },
    title:{
     type:String,
@@ -15,15 +16,13 @@ const taskSchema=new mongoose.Schema({
    },
    status:{
     type:String,
-    enum:["pending","inprogress","compeleted"]
+    enum:["pending","inprogress","completed"]
    },
    duedate:{
-    type:Date,
-    default:Date.now
-
+    type:String
    },
    duetime:{
-    type:Date,
+    type:String,
    },
    priority:{
     type:String,

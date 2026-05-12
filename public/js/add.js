@@ -18,7 +18,8 @@ function formData(event){
         console.log(newData)
     
 
-        sendData(newData);
+        sendData(newData,form1);
+        alert("successfully submitted the data")
        
         
 
@@ -78,7 +79,7 @@ function btnValue(btns){
     //      
     
 }
-async function sendData(data){
+async function sendData(data,form1){
     try{
     const response=await fetch("/todo/add",{
         method:"POST",
@@ -89,6 +90,10 @@ async function sendData(data){
     })
     const newone=await response.json();
     console.log(newone);
+    if(newone){
+        form1.reset();
+
+    }
     console.log("successfully sent the data");
 }catch(err){
     console.log("error  while getting  this part  please check it and verify it ",err);

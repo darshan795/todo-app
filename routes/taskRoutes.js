@@ -7,7 +7,10 @@ const ExpressError=require("../utils/ExpressError");
 const WrapAsync=require("../utils/WrapAsync");
 const isLoggedIn=require("../middleware");
 
-router.get("/",(req,res)=>{
+router.get("/",isLoggedIn,(req,res)=>{
+    console.log(req.session);
+    // console.log(req.user.id);
+    console.log(req.user._id);
     res.send("welcome to the implementation of the  routers  motherfucker!!!");
 })
 
@@ -16,9 +19,11 @@ router.get("/add",isLoggedIn,(req,res)=>{
 })
 router.post("/add",   WrapAsync(async (req,res)=>{
     let data=req.body;
+    
     const newData={
-        userid:new mongoose.Types.ObjectId("69d5246752afdc4fd859b064"),
-        ...data
+        ...data,
+        owner:req.user._id
+
     };
     console.log("the resquest is logged  here motherfucker!!")
     console.log(newData);   
